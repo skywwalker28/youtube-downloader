@@ -5,7 +5,7 @@ import java.util.List;
 public record YoutubeInfoResponse(
         String id,
         String title,
-        Long durationSec,
+        Long duration,
         String uploader,
         String thumbnail,
         List<VideoFormatDto> formats

@@ -1,6 +1,7 @@
 package org.example.youtube_downloader.service;
 
 import org.example.youtube_downloader.client.YtDlpClient;
+import org.example.youtube_downloader.dto.YoutubeDownloadRequest;
 import org.example.youtube_downloader.dto.YoutubeInfoRequest;
 import org.example.youtube_downloader.dto.YoutubeInfoResponse;
 import org.springframework.stereotype.Service;
@@ -16,5 +17,10 @@ public class YoutubeServiceImpl implements YoutubeService {
     @Override
     public YoutubeInfoResponse getVideoInfo(YoutubeInfoRequest request) {
         return ytDlpClient.fetchVideoInfo(request);
+    }
+
+    @Override
+    public String downloadVideo(YoutubeDownloadRequest request) {
+        return ytDlpClient.downloadVideo(request);
     }
 }

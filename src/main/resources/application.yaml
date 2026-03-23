@@ -6,7 +6,6 @@ spring:
     name: youtube-downloader
 
 ytdlp:
-  base-url: http://localhost:8080/mock-ytdlp #http://localhost:8081
+  base-url: http://localhost:8081
   paths:
-    info:
-      /info
+    info: /info
