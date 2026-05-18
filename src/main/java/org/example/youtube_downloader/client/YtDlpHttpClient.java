@@ -38,7 +38,8 @@ public class YtDlpHttpClient implements YtDlpClient {
                 .body(String.class);
     }
 
-    public FrameResponse extract_39_frame(FrameRequest request) {
+    @Override
+    public FrameResponse extract39Frame(FrameRequest request) {
         return restClient.post()
                 .uri("/frame39")
                 .body(request)
