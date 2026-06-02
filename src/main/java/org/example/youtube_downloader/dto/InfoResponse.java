@@ -2,7 +2,7 @@ package org.example.youtube_downloader.dto;
 
 import java.util.List;
 
-public record YoutubeInfoResponse(
+public record InfoResponse(
         String id,
         String title,
         Long duration,

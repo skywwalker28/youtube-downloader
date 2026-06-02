@@ -9,33 +9,27 @@ import org.springframework.web.client.RestClient;
 public class YtDlpHttpClient implements YtDlpClient {
 
     private final RestClient restClient;
-    private final String infoPath;
 
-    public YtDlpHttpClient(
-            @Value("${ytdlp.base-url}") String baseUrl,
-            @Value("${ytdlp.paths.info}") String infoPath
-    ) {
+    public YtDlpHttpClient(@Value("${ytdlp.base-url}") String baseUrl) {
         this.restClient = RestClient.builder().baseUrl(baseUrl).build();
-        this.infoPath = infoPath;
     }
 
-
     @Override
-    public YoutubeInfoResponse fetchVideoInfo(YoutubeInfoRequest request) {
+    public InfoResponse fetchVideoInfo(InfoRequest request) {
         return restClient.post()
-                .uri(infoPath)
+                .uri("/info")
                 .body(request)
                 .retrieve()
-                .body(YoutubeInfoResponse.class);
+                .body(InfoResponse.class);
     }
 
     @Override
-    public String downloadVideo(YoutubeDownloadRequest request) {
+    public DownloadResponse downloadVideo(DownloadRequest request) {
         return restClient.post()
                 .uri("/download")
                 .body(request)
                 .retrieve()
-                .body(String.class);
+                .body(DownloadResponse.class);
     }
 
     @Override

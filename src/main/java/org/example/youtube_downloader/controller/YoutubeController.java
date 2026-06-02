@@ -1,9 +1,8 @@
 package org.example.youtube_downloader.controller;
 
 import jakarta.validation.Valid;
+import org.example.youtube_downloader.client.YtDlpClient;
 import org.example.youtube_downloader.dto.*;
-import org.example.youtube_downloader.service.FrameService;
-import org.example.youtube_downloader.service.YoutubeService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,27 +12,24 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/youtube")
 public class YoutubeController {
 
-    private final YoutubeService youtubeService;
-    private final FrameService frameService;
+    private final YtDlpClient ytDlpClient;
 
-    public YoutubeController(YoutubeService youtubeService, FrameService frameService) {
-        this.youtubeService = youtubeService;
-        this.frameService = frameService;
+    public YoutubeController(YtDlpClient ytDlpClient) {
+        this.ytDlpClient = ytDlpClient;
     }
 
-
     @PostMapping("/info")
-    public YoutubeInfoResponse getInfo(@Valid @RequestBody YoutubeInfoRequest request) {
-        return youtubeService.getVideoInfo(request);
+    public InfoResponse getInfo(@RequestBody @Valid InfoRequest request) {
+        return ytDlpClient.fetchVideoInfo(request);
     }
 
     @PostMapping("/download")
-    public String download(@RequestBody YoutubeDownloadRequest request) {
-        return youtubeService.downloadVideo(request);
+    public DownloadResponse download(@RequestBody @Valid DownloadRequest request) {
+        return ytDlpClient.downloadVideo(request);
     }
 
     @PostMapping("/frame39")
-    public FrameResponse getFrame39(@RequestBody FrameRequest request) {
-        return frameService.get_39th_frame(request.videoId(), request.formatId());
+    public FrameResponse getFrame39(@RequestBody @Valid FrameRequest request) {
+        return ytDlpClient.extract39Frame(new FrameRequest(request.videoId(), request.formatId()));
     }
 }

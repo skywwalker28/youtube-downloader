@@ -1,6 +1,9 @@
 package org.example.youtube_downloader.dto;
 
+import jakarta.validation.constraints.NotBlank;
+
 public record FrameRequest(
-   String videoId,
-   String formatId
+        @NotBlank(message = "video id must not be blank")
+        String videoId,
+        String formatId
 ) {}
